@@ -19,6 +19,14 @@ public class BaseFunct extends AppCompatActivity{
     public ImageView imgNavHeaderBg, imgProfile;
     public static final String urlNavHeaderBg = "http://api.androidhive.info/images/nav-menu-header-bg.jpg";
 
+    public void saveDataUsersLogin(String data){
+        Log.d("carijson", data.toString());
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("data_private", 0);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("data", data);
+        editor.commit();
+    }
+
     public boolean loadDataUsersLogin(){
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("data_private", 0);
         Log.d("karepmu A", "sakkarepmu A");

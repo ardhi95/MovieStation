@@ -33,6 +33,10 @@ import com.example.nabella.moviestation.fragment.NotificationsFragment;
 import com.example.nabella.moviestation.fragment.PhotosFragment;
 import com.example.nabella.moviestation.fragment.SettingsFragment;
 import com.example.nabella.moviestation.other.CircleTransform;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -68,6 +72,7 @@ public class MainActivity extends BaseFunct {
     // flag to load home fragment when user presses back key
     private boolean shouldLoadHomeFragOnBackPress = true;
     private Handler mHandler;
+    private GoogleApiClient mGoogleApiClient;
 
 
     @Override
@@ -369,6 +374,7 @@ public class MainActivity extends BaseFunct {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
+            signOut();
             Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();
             return true;
         }
@@ -388,6 +394,25 @@ public class MainActivity extends BaseFunct {
         return super.onOptionsItemSelected(item);
     }
 
+
+    /*public void onClick(View v) {
+        switch (v.getId()) {
+            // ...
+            case R.id.action_logout:
+                signOut();
+                break;
+            // ...
+        }
+    }*/
+    private void signOut() {
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        mGoogleApiClient.connect();
+                    }
+                });
+    }
     // show or hide the fab
     private void toggleFab() {
         if (navItemIndex == 0)
