@@ -48,7 +48,7 @@ public class ProfilActivity extends BaseFunct {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         imgNavHeaderBg = (ImageView) findViewById(R.id.img_header_bg);
         imgProfile = (ImageView) findViewById(R.id.img_profile);
 

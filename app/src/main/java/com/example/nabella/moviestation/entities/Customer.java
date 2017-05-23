@@ -29,16 +29,10 @@ public class Customer {
         this.saldo = this.json.getString("saldo");
     }
 
-    public String getId_customer() {
-
-        return id_customer;
-    }
-    public void setId_customer(String id_customer) {
-        this.id_customer = id_customer;
-    }
+    public String getId_customer() {return id_customer;}
+    public void setId_customer(String id_customer) {this.id_customer = id_customer;}
 
     public String getEmail(){return  email;}
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -46,7 +40,6 @@ public class Customer {
     public String getNama() {
         return nama;
     }
-
     public void setNama(String nama) {
         this.nama = nama;
     }
@@ -54,7 +47,6 @@ public class Customer {
     public String getGender() {
         return gender;
     }
-
     public void setGender(String gender) {
         this.gender = gender;
     }
@@ -62,7 +54,6 @@ public class Customer {
     public String getNo_hp() {
         return no_hp;
     }
-
     public void setNo_hp(String no_hp) {
         this.no_hp = no_hp;
     }
@@ -70,7 +61,6 @@ public class Customer {
     public String getSaldo() {
         return saldo;
     }
-
     public void setSaldo(String saldo) {
         this.saldo = saldo;
     }
@@ -78,7 +68,6 @@ public class Customer {
     public String getFoto() {
         return foto;
     }
-
     public void setFoto(String foto) {
         this.foto = foto;
     }
@@ -86,7 +75,6 @@ public class Customer {
     public Boolean getCheck() {
         return isCheck;
     }
-
     public void setCheck(Boolean check) {
         isCheck = check;
     }

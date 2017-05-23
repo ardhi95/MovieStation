@@ -26,11 +26,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.nabella.moviestation.BaseFunct;
 import com.example.nabella.moviestation.R;
-import com.example.nabella.moviestation.entities.Customer;
+import com.example.nabella.moviestation.fragment.BalanceFragment;
 import com.example.nabella.moviestation.fragment.HomeFragment;
 import com.example.nabella.moviestation.fragment.MoviesFragment;
 import com.example.nabella.moviestation.fragment.NotificationsFragment;
-import com.example.nabella.moviestation.fragment.PhotosFragment;
 import com.example.nabella.moviestation.fragment.SettingsFragment;
 import com.example.nabella.moviestation.other.CircleTransform;
 import com.google.android.gms.auth.api.Auth;
@@ -60,7 +59,7 @@ public class MainActivity extends BaseFunct {
 
     // tags used to attach the fragments
     private static final String TAG_HOME = "home";
-    private static final String TAG_PHOTOS = "photos";
+    private static final String TAG_BALANCE = "balance";
     private static final String TAG_MOVIES = "movies";
     private static final String TAG_NOTIFICATIONS = "notifications";
     private static final String TAG_SETTINGS = "settings";
@@ -215,9 +214,9 @@ public class MainActivity extends BaseFunct {
                 HomeFragment homeFragment = new HomeFragment();
                 return homeFragment;
             case 1:
-                // photos
-                PhotosFragment photosFragment = new PhotosFragment();
-                return photosFragment;
+                // balance
+                BalanceFragment balanceFragment = new BalanceFragment();
+                return balanceFragment;
             case 2:
                 // movies fragment
                 MoviesFragment moviesFragment = new MoviesFragment();
@@ -255,13 +254,13 @@ public class MainActivity extends BaseFunct {
                 //Check to see which item was being clicked and perform appropriate action
                 switch (menuItem.getItemId()) {
                     //Replacing the main content with ContentFragment Which is our Inbox View;
-                    case R.id.home:
+                    case R.id.nav_home:
                         navItemIndex = 0;
                         CURRENT_TAG = TAG_HOME;
                         break;
-                    case R.id.nav_photos:
+                    case R.id.nav_balance:
                         navItemIndex = 1;
-                        CURRENT_TAG = TAG_PHOTOS;
+                        CURRENT_TAG = TAG_BALANCE;
                         break;
                     case R.id.nav_movies:
                         navItemIndex = 2;

@@ -3,4 +3,12 @@
     <color name="colorPrimary">#e50938</color>
     <color name="colorPrimaryDark">#b7072c</color>
     <color name="colorAccent">#441b24</color>
+    <color name="tabsScrollColor">#8a140e</color>
+    <color name="circular_progress_default_progress">#bada55</color>
+    <color name="circular_progress_default_background">#787878</color>
+    <color name="circular_progress_default_title">#bada55</color>
+    <color name="circular_progress_default_subtitle">#D1D1D1</color>
+    <color name="uang">#6795e5</color>
+    <color name="white">#fff</color>
+
 </resources>
