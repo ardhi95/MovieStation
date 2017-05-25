@@ -68,17 +68,20 @@ public class HomeFragment extends Fragment {
 
         bioskopList = new ArrayList<>();
         adapter = new BioskopAdapter(getActivity(), bioskopList);
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 1);
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(1, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+        /*recyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bioskop selecetedFl = bioskopList.get(position);
+                Intent i = new Intent(getActivity(), MovieB_Activity.class);
 
                 startActivity(i);
             }
+        });*/
         getBioskop();
         return rootView;
     }
