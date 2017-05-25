@@ -8,28 +8,30 @@ import org.json.JSONObject;
  */
 
 public class Saldo {
-    private String id_transksi_saldo;
+    private String id_transaksi_saldo;
     private String jumlah_saldo;
     private String tanggal;
     private String id_customer;
     private String status;
-    private JSONObject json;
 
-    public Saldo(JSONObject json) throws JSONException {
+    private JSONObject json;
+    private Boolean isCheck;
+
+    public Saldo(JSONObject json) throws JSONException{
         this.json = json;
-        this.id_transksi_saldo = this.json.getString("id_transaksi_saldo");
+        this.id_transaksi_saldo = this.json.getString("id_transaksi_saldo");
         this.jumlah_saldo = this.json.getString("jumlah_saldo");
         this.tanggal = this.json.getString("tanggal");
         this.id_customer = this.json.getString("id_customer");
         this.status = this.json.getString("status");
     }
 
-    public String getId_transksi_saldo() {
-        return id_transksi_saldo;
+    public String getId_transaksi_saldo() {
+        return id_transaksi_saldo;
     }
 
-    public void setId_transksi_saldo(String id_transksi_saldo) {
-        this.id_transksi_saldo = id_transksi_saldo;
+    public void setId_transaksi_saldo(String id_transaksi_saldo) {
+        this.id_transaksi_saldo = id_transaksi_saldo;
     }
 
     public String getJumlah_saldo() {
@@ -62,5 +64,13 @@ public class Saldo {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Boolean isCheck() {
+        return isCheck();
+    }
+
+    public void setCheck(Boolean isCheck) {
+        this.isCheck = isCheck;
     }
 }

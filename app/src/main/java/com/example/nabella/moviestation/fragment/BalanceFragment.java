@@ -94,8 +94,6 @@ public class BalanceFragment extends Fragment {
             public void onClick(View v) {
                 Intent mainIntent = new Intent(getActivity(),
                         SaldoActivity.class);
-                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(mainIntent);
             }
         });

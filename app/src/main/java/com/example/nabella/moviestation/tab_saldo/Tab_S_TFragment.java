@@ -1,13 +1,8 @@
 package com.example.nabella.moviestation.tab_saldo;
 
 
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.icu.text.SimpleDateFormat;
-import android.icu.util.Calendar;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,9 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nabella.moviestation.R;
-import com.example.nabella.moviestation.activity.LoginActivity;
-import com.example.nabella.moviestation.activity.MainActivity;
-import com.example.nabella.moviestation.activity.SaldoActivity;
 import com.example.nabella.moviestation.entities.Customer;
 import com.example.nabella.moviestation.lib.FormData;
 import com.example.nabella.moviestation.lib.InternetTask;
@@ -31,7 +23,6 @@ import com.example.nabella.moviestation.lib.OnInternetTaskFinishedListener;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

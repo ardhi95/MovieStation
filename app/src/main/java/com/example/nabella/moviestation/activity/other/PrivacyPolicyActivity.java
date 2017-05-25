@@ -1,4 +1,4 @@
-package com.example.nabella.moviestation.activity;
+package com.example.nabella.moviestation.activity.other;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
