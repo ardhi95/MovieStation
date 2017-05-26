@@ -20,7 +20,8 @@
     <string name="nav_notifications">Notifications</string>
     <string name="nav_settings">Settings</string>
     <string name="nav_about_us">About Us</string>
-
+    <string name="double_tap_enabled">Double tap enabled</string>
+    <string name="double_tap_disabled">Double tap disabled</string>
     <!-- Toolbar titles when navigation menu item is selected -->
     <string-array name="nav_item_activity_titles">
         <item>Home</item>

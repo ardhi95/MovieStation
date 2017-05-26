@@ -47,7 +47,8 @@
         <activity android:name=".activity.ProfileActivity" />
         <activity android:name=".activity.Main2Activity" />
         <activity android:name=".tab_saldo.Detail_HSActivity" />
-        <activity android:name=".activity.ticket.MovieB_Activity"></activity>
+        <activity android:name=".activity.ticket.MovieB_Activity" />
+        <activity android:name=".seats.SeatsActivity"></activity>
     </application>
 
 </manifest>

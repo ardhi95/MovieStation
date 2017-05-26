@@ -417,7 +417,7 @@ public class MainActivity extends BaseFunct {
             fab.hide();
     }
 
-    public void cutomer_profil(){
+            public void cutomer_profil(){
         cust_profil = (ImageView) navHeader.findViewById(R.id.img_profile);
         cust_profil.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
