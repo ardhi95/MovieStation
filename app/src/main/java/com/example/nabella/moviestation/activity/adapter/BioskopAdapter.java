@@ -39,7 +39,6 @@ public class BioskopAdapter extends RecyclerView.Adapter<BioskopAdapter.MyViewHo
             title = (TextView) view.findViewById(R.id.title);
             addrs = (TextView) view.findViewById(R.id.count);
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
-            overflow = (ImageView) view.findViewById(R.id.overflow);
         }
     }
 

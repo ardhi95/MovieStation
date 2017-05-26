@@ -70,7 +70,7 @@ public class HomeFragment extends Fragment {
         adapter = new BioskopAdapter(getActivity(), bioskopList);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(1, dpToPx(10), true));
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(1, dpToPx(3), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
         /*recyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -116,7 +116,7 @@ public class Tab_S_HFragment extends Fragment {
                             adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, listpost);
                             lv.setAdapter(adapter);
                         }
-                        Toast.makeText(getContext(),jsonArray.toString(),Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(),jsonArray.toString(),Toast.LENGTH_SHORT).show();
                     }else{
 //                            Snackbar.make(clContent, "Liked!", Snackbar.LENGTH_SHORT).show();
                     }
