@@ -58,24 +58,24 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.MyViewHolder>{
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Film film = filmList.get(position);
-        holder.title.setText(film.getNama_film());
+        holder.title.setText(film.getTitle());
         holder.count.setText("Rp. "+ film.getHarga());
 
         // loading album cover using Glide library
-        Glide.with(mContext).load(film.getId_movie()).into(holder.thumbnail);
+        Glide.with(mContext).load(film.getPoster()).into(holder.thumbnail);
 
         holder.thumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //showPopupMenu(holder.overflow);
-                Toast.makeText(mContext, film.getNama_film().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, film.getTitle().toString(), Toast.LENGTH_SHORT).show();
             }
         });
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //showPopupMenu(holder.overflow);
-                Toast.makeText(mContext, "Pesan "+film.getNama_film().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Pesan "+film.getTitle().toString(), Toast.LENGTH_SHORT).show();
             }
         });
 

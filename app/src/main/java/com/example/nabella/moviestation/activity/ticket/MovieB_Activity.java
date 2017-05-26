@@ -3,6 +3,7 @@ package com.example.nabella.moviestation.activity.ticket;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,6 +50,10 @@ public class MovieB_Activity extends BaseFunct {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_b);
         super.loadDataUsersLogin();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = getWindow(); // in Activity's onCreate() for instance
+            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
         txtNamaB = (TextView) this.findViewById(R.id.txt_namaB);
         txtalamat = (TextView) this.findViewById(R.id.txt_addrB);
         txtIdcst =(TextView) this.findViewById(R.id.txt_idcst);
