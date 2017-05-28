@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rl"
     android:layout_width="match_parent"
+    android:background="@drawable/bg_home"
     android:layout_height="match_parent"
     tools:context="com.example.nabella.moviestation.activity.ProfilActivity">
     <android.support.v7.widget.Toolbar

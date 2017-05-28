@@ -24,6 +24,6 @@ public class NotificationsFragment extends Fragment {
     }
 
     private void getJadwal() {
-        
+
     }
 }

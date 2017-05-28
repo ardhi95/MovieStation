@@ -1,11 +1,9 @@
 package com.example.nabella.moviestation.activity.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.PopupMenu;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -15,6 +13,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.nabella.moviestation.R;
+import com.example.nabella.moviestation.activity.ticket.Jadwal_FilmActivity;
 import com.example.nabella.moviestation.entities.Film;
 
 import java.util.List;
@@ -58,10 +57,9 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.MyViewHolder>{
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Film film = filmList.get(position);
+
         holder.title.setText(film.getTitle());
         holder.count.setText("Rp. "+ film.getHarga());
-
-        // loading album cover using Glide library
         Glide.with(mContext).load(film.getPoster()).into(holder.thumbnail);
 
         holder.thumbnail.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +73,10 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.MyViewHolder>{
             @Override
             public void onClick(View view) {
                 //showPopupMenu(holder.overflow);
+                Intent i = new Intent(mContext, Jadwal_FilmActivity.class);
+                i.putExtra("id_movie", film.getId_movie().toString());
+                i.putExtra("id_bioskop", film.getId_bioskop().toString());
+                mContext.startActivity(i);
                 Toast.makeText(mContext, "Pesan "+film.getTitle().toString(), Toast.LENGTH_SHORT).show();
             }
         });

@@ -11,12 +11,14 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -33,12 +35,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MovieB_Activity extends BaseFunct {
 
-    String txtidB;
+    String txtidB, tanggal;
     TextView txtNamaB,txtalamat, txtIdcst;
     ImageView imgPict;
     private RecyclerView recyclerView;
@@ -80,7 +84,6 @@ public class MovieB_Activity extends BaseFunct {
         recyclerView.setAdapter(adapter);
 
         getMovie();
-
         try {
             Glide.with(this).load(R.drawable.cover).into((ImageView) findViewById(R.id.backdrop));
         } catch (Exception e) {
@@ -116,23 +119,6 @@ public class MovieB_Activity extends BaseFunct {
         });
     }
 
-    /*private void showData() {
-        Intent i = getIntent();
-        txtidB = i.getStringExtra("id_bioskop");
-        String  NamaB = i.getStringExtra("nama_bioskop");
-        String AlamatB = i.getStringExtra("alamat");
-        String PictB = i.getStringExtra("picture_url");
-        txtNamaB.setText(NamaB);
-        txtalamat.setText(AlamatB);
-        String urlProfileImg = PictB;
-        Glide.with(this).load(urlProfileImg)
-                .crossFade()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(imgPict);
-    }*/
-    /**
-     * RecyclerView item decoration - give equal margin around grid item
-     */
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
 
         private int spanCount;
@@ -176,6 +162,12 @@ public class MovieB_Activity extends BaseFunct {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
 
+    public void getDate(){
+        Date curDate = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        tanggal = format.format(curDate);
+    }
+
     public void getMovie(){
         FormData data = new FormData();
         data.add("method", "getMovieTic");
@@ -188,24 +180,34 @@ public class MovieB_Activity extends BaseFunct {
                     JSONObject jsonObject = new JSONObject(internetTask.getResponseString());
                     if (jsonObject.get("code").equals(200)){
                         JSONArray jsonArray = jsonObject.getJSONArray("data");
-                        if (jsonArray.length() > 0){
-                            for (int i = 0; i < jsonArray.length();i++){
-                                filmList.add(new Film(jsonArray.getJSONObject(i)));
-                                adapter.notifyDataSetChanged();
-                            }
-                        }
+                        //if (jsonArray.length() > 0){
+                        ArrayList<String> listtgl = new ArrayList<String>();
+                        for (int i = 0; i < jsonArray.length();i++){
+                            getDate();
+                            String dn = tanggal;
+                            String dm = (String) jsonArray.getJSONObject(i).get("tgl_mulai");
+                            String da = (String) jsonArray.getJSONObject(i).get("tgl_selesai");
+                            String sdn = dn.replaceAll("[^\\d.]+", "");
+                            String sda = da.replaceAll("[^\\d.]+", "");
+                            String sdm = dm.replaceAll("[^\\d.]+", "");
+                            int idn = Integer.parseInt(sdn);
+                            int idm = Integer.parseInt(sdm);
+                            int ida = Integer.parseInt(sda);
+                            Log.d("tglMulai", "Mulai "+ String.valueOf(idm) +" Akhir "+ String.valueOf(ida));
+                                if (idn >= idm && idn <= ida){
+                                    filmList.add(new Film(jsonArray.getJSONObject(i)));
+                                    adapter.notifyDataSetChanged();
+                                }
+                         }
                         //Toast.makeText(getContext(),jsonArray.toString(),Toast.LENGTH_SHORT).show();
                     }else{
-//                            Snackbar.make(clContent, "Liked!", Snackbar.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
-                    //                       Snackbar.make(clContent, e.getMessage(), Snackbar.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void OnInternetTaskFailed(InternetTask internetTask) {
-                //                   Snackbar.make(clContent, internetTask.getException().getMessage(), Snackbar.LENGTH_SHORT).show();
             }
         });
         uploadTask.execute();
