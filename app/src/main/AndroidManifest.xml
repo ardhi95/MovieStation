@@ -51,7 +51,8 @@
         <activity android:name=".seats.SeatsActivity" />
         <activity android:name=".activity.ticket.JadwalActivity" />
         <activity android:name=".activity.ticket.Jadwal_FilmActivity" />
-        <activity android:name=".activity.ticket.SeatsActivity"></activity>
+        <activity android:name=".activity.ticket.SeatsActivity" />
+        <activity android:name=".activity.ticket.PaymentActivity"></activity>
     </application>
 
 </manifest>

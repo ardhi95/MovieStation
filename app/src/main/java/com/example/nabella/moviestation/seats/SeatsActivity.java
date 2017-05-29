@@ -3,6 +3,8 @@ package com.example.nabella.moviestation.seats;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.nabella.moviestation.BaseFunct;
 import com.example.nabella.moviestation.R;
+import com.example.nabella.moviestation.activity.ticket.PaymentActivity;
 
 import java.util.ArrayList;
 
@@ -26,14 +29,13 @@ import by.anatoldeveloper.hallscheme.view.ZoomableImageView;
 public class SeatsActivity extends BaseFunct {
     boolean doubleTap = true;
     ArrayList<String> listKursi = new ArrayList<>(0);
-    int jmlh,total;
-    int harga = 20;
-    int saldo = 100;
+    ArrayList<String> listtmpatduduk = new ArrayList<>(0);
+    int jmlh,total,harga,saldo, biayaLayanan, subtotal;
     Button zoomButton;
     TextView txtSeat,txtSaldo,txtKet;
-    String idj, typ, kuotaSeat;
+    String idj, typ, kuotaSeat, hrg, saldocust, idcust, nmFlm, jmFilm, tglFilm;
     String kursi = "";
-    String cs;
+    String cs, idMovie, jam;
     String[] ary = kursi.split(",");
 
     @Override
@@ -41,49 +43,68 @@ public class SeatsActivity extends BaseFunct {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seats);
         final ZoomableImageView imageView = (ZoomableImageView) findViewById(R.id.zoomable_image);
-        zoomButton = (Button) findViewById(R.id.scheme_button);
-
-
+        zoomButton = (Button) findViewById(R.id.btn_proses);
+        super.loadDataUsersLogin();
 
         Intent i = getIntent();
+        hrg = i.getStringExtra("harga");
+        idMovie = i.getStringExtra("id_movie");
         idj = i.getStringExtra("id_jadwal");
         typ = i.getStringExtra("type_theater");
         kuotaSeat = i.getStringExtra("kuota");
+        jam = i.getStringExtra("jam");
 
+        harga = Integer.parseInt(hrg);
+        saldocust = super.customer.getSaldo();
+        saldo = Integer.parseInt(saldocust);
+        idcust = super.customer.getId_customer();
         Log.d("mboh", typ+"/"+kuotaSeat);
 
         txtSeat = (TextView)findViewById(R.id.txt_seat);
         txtSaldo = (TextView)findViewById(R.id.txt_saldo);
         txtKet = (TextView)findViewById(R.id.txt_ket);
+        txtSaldo.setText("Rp. "+String.valueOf(saldo));
         zoomButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                doubleTap = !doubleTap;
-                imageView.setZoomByDoubleTap(doubleTap);
-                if (doubleTap) {
-                    zoomButton.setText(getString(R.string.double_tap_enabled));
-                } else {
-                    zoomButton.setText(getString(R.string.double_tap_disabled));
-                }
+                Intent i = new Intent(SeatsActivity.this, PaymentActivity.class);
+                /*i.putExtra("nama", idj.toString());
+                i.putExtra("jam", idcust.toString());
+                i.putExtra("tanggal", String.valueOf(listKursi));*/
+                //i.putExtra("poster", String.valueOf(listtmpatduduk));
+                Log.d("intennya", String.valueOf(biayaLayanan)+"/"+String.valueOf(total));
+                i.putExtra("jmlh", String.valueOf(jmlh));
+                i.putExtra("subtotal", String.valueOf(subtotal));
+                i.putExtra("biayalayanan", String.valueOf(biayaLayanan));
+                i.putExtra("total", String.valueOf(total));
+                i.putExtra("id_movie", idMovie);
+                i.putExtra("jam", jam);
+                startActivity(i);
+                Toast.makeText(SeatsActivity.this, "Proses "+String.valueOf(jmlh)+" Kursi", Toast.LENGTH_LONG).show();
             }
         });
         pilihType();
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void jmlhbayar(){
         jmlh = listKursi.size();
-        total = jmlh * harga;
-        txtSeat.setText(String.valueOf(total));
-        txtSaldo.setText(String.valueOf(saldo));
+        subtotal = jmlh * harga;
+        double sepuluh = 0.1;
+        biayaLayanan = (int) (subtotal * sepuluh);
+        Log.d("layanannyaa", String.valueOf(biayaLayanan));
+        total = (subtotal + biayaLayanan);
+        txtSeat.setText("Rp. "+String.valueOf(total));
 
         if (total <= saldo){
-            txtKet.setText(String.valueOf(listKursi));
-            zoomButton.setVisibility(View.VISIBLE);
+            zoomButton.setEnabled(true);
+            txtSeat.setTextColor(getResources().getColor(R.color.uang));
+            txtKet.setText(String.valueOf(jmlh));
         }else {
-            //txtKet.setText("Gak cukup");
+            txtSeat.setTextColor(getResources().getColor(R.color.colorPrimary));
             Toast.makeText(this,"Anda tidak dapat memproses karena saldo kurang",Toast.LENGTH_SHORT).show();
-            zoomButton.setVisibility(View.INVISIBLE);
+            zoomButton.setEnabled(false);
         }
     }
     public void pilihType(){
@@ -96,15 +117,19 @@ public class SeatsActivity extends BaseFunct {
                 gold.setScenePosition(ScenePosition.NORTH);
                 gold.setSeatListener(new SeatListener() {
 
+                    @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
                     public void selectSeat(int id) {
+                        listtmpatduduk.add(String.valueOf(cs));
                         listKursi.add(String.valueOf(id));
                         jmlhbayar();
 
                     }
 
+                    @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
                     public void unSelectSeat(int id) {
+                        listtmpatduduk.remove(String.valueOf(cs));
                         listKursi.remove(String.valueOf(id));
                         jmlhbayar();
                     }
@@ -116,15 +141,19 @@ public class SeatsActivity extends BaseFunct {
                 premier.setScenePosition(ScenePosition.NORTH);
                 premier.setSeatListener(new SeatListener() {
 
+                    @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
                     public void selectSeat(int id) {
+                        listtmpatduduk.add(String.valueOf(cs));
                         listKursi.add(String.valueOf(id));
                         jmlhbayar();
 
                     }
 
+                    @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
                     public void unSelectSeat(int id) {
+                        listtmpatduduk.remove(String.valueOf(cs));
                         listKursi.remove(String.valueOf(id));
                         jmlhbayar();
                     }
@@ -136,15 +165,18 @@ public class SeatsActivity extends BaseFunct {
                 reguler.setScenePosition(ScenePosition.NORTH);
                 reguler.setSeatListener(new SeatListener() {
 
+                    @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
                     public void selectSeat(int id) {
+                        listtmpatduduk.add(String.valueOf(cs));
                         listKursi.add(String.valueOf(id));
                         jmlhbayar();
-
                     }
 
+                    @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
                     public void unSelectSeat(int id) {
+                        listtmpatduduk.remove(String.valueOf(cs));
                         listKursi.remove(String.valueOf(id));
                         jmlhbayar();
                     }

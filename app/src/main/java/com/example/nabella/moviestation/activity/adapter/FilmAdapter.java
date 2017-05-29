@@ -76,6 +76,7 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.MyViewHolder>{
                 Intent i = new Intent(mContext, Jadwal_FilmActivity.class);
                 i.putExtra("id_movie", film.getId_movie().toString());
                 i.putExtra("id_bioskop", film.getId_bioskop().toString());
+                i.putExtra("nama", film.getTitle().toString());
                 mContext.startActivity(i);
                 Toast.makeText(mContext, "Pesan "+film.getTitle().toString(), Toast.LENGTH_SHORT).show();
             }

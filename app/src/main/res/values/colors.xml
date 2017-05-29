@@ -14,4 +14,5 @@
 <!--Card View-->
     <color name="viewBg">#f1f5f8</color>
     <color name="album_title">#4c4c4c</color>
+    <color name="form">#f2e8c9</color>
 </resources>

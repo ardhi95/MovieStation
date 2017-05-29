@@ -9,21 +9,25 @@ import org.json.JSONObject;
 
 public class Jadwal {
     private String id_jadwal;
+    private String id_movie;
     private String jam;
     private String type_theater;
     private String kuota;
     private String tgl_mulai;
     private String tgl_selesai;
     private String harga;
+
     private JSONObject json;
     public Jadwal(JSONObject json) throws JSONException {
         this.json = json;
         this.id_jadwal = this.json.getString("id_jadwal");
+        this.id_movie = this.json.getString("id_movie");
         this.jam = this.json.getString("jam");
         this.type_theater = this.json.getString("type_theater");
         this.kuota = this.json.getString("kuota");
         this.tgl_mulai = this.json.getString("tgl_mulai");
         this.tgl_selesai = this.json.getString("tgl_selesai");
+        this.harga = this.json.getString("harga");
     }
 
     public String getId_jadwal() {
@@ -32,6 +36,14 @@ public class Jadwal {
 
     public void setId_jadwal(String id_jadwal) {
         this.id_jadwal = id_jadwal;
+    }
+
+    public String getId_movie() {
+        return id_movie;
+    }
+
+    public void setId_movie(String id_movie) {
+        this.id_movie = id_movie;
     }
 
     public String getType_theater() {

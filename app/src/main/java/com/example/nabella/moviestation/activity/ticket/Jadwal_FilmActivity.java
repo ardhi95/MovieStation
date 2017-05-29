@@ -32,7 +32,7 @@ public class Jadwal_FilmActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private JadwalAdapter adapter;
     private List<Jadwal> jadwalList;
-    public String txt_idb, txt_idm;
+    public String txt_idb, txt_idm, jNama;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +42,7 @@ public class Jadwal_FilmActivity extends AppCompatActivity {
         Intent i = getIntent();
         txt_idb = i.getStringExtra("id_bioskop");
         txt_idm = i.getStringExtra("id_movie");
+        jNama = i.getStringExtra("nama");
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         jadwalList = new ArrayList<>();

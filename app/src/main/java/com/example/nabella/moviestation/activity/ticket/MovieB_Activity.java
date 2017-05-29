@@ -42,7 +42,7 @@ import java.util.List;
 
 public class MovieB_Activity extends BaseFunct {
 
-    String txtidB, tanggal;
+    String txtidB, tanggal, nmB;
     TextView txtNamaB,txtalamat, txtIdcst;
     ImageView imgPict;
     private RecyclerView recyclerView;
@@ -64,7 +64,7 @@ public class MovieB_Activity extends BaseFunct {
 
         Intent i = getIntent();
         txtidB = i.getStringExtra("id_bioskop");
-        String nmB = i.getStringExtra("nama_bioskop");
+        nmB = i.getStringExtra("nama_bioskop");
         String addrB = i.getStringExtra("alamat");
 
         txtNamaB.setText(nmB);

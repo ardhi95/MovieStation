@@ -89,7 +89,11 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
                 i.putExtra("id_jadwal", jadwal.getId_jadwal());
                 i.putExtra("type_theater", jadwal.getType_theater());
                 i.putExtra("kuota", jadwal.getKuota());
+                i.putExtra("harga", jadwal.getHarga());
+                i.putExtra("jam", jadwal.getJam());
+                i.putExtra("id_movie", jadwal.getId_movie());
                 mContext.startActivity(i);
+                Log.d("idmv", jadwal.getId_movie());
                 /*Toast.makeText(mContext, jadwal.getJam().toString(), Toast.LENGTH_LONG).show();*/
             }
         });
