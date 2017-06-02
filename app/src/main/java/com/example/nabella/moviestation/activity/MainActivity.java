@@ -27,8 +27,6 @@ import com.example.nabella.moviestation.activity.other.AboutUsActivity;
 import com.example.nabella.moviestation.activity.other.PrivacyPolicyActivity;
 import com.example.nabella.moviestation.fragment.BalanceFragment;
 import com.example.nabella.moviestation.fragment.HomeFragment;
-import com.example.nabella.moviestation.fragment.MoviesFragment;
-import com.example.nabella.moviestation.fragment.NotificationsFragment;
 import com.example.nabella.moviestation.fragment.SettingsFragment;
 import com.example.nabella.moviestation.other.CircleTransform;
 import com.google.android.gms.auth.api.Auth;
@@ -57,8 +55,8 @@ public class MainActivity extends BaseFunct {
     // tags used to attach the fragments
     private static final String TAG_HOME = "home";
     private static final String TAG_BALANCE = "balance";
-    private static final String TAG_MOVIES = "movies";
-    private static final String TAG_NOTIFICATIONS = "notifications";
+    /*private static final String TAG_MOVIES = "movies";
+    private static final String TAG_NOTIFICATIONS = "notifications";*/
     private static final String TAG_SETTINGS = "settings";
     public static String CURRENT_TAG = TAG_HOME;
 
@@ -148,7 +146,7 @@ public class MainActivity extends BaseFunct {
                 .into(super.imgProfile);
 
         // showing dot next to notifications label
-        navigationView.getMenu().getItem(3).setActionView(R.layout.menu_dot);
+        //navigationView.getMenu().getItem(3).setActionView(R.layout.menu_dot);
     }
 
     /***
@@ -215,15 +213,6 @@ public class MainActivity extends BaseFunct {
                 BalanceFragment balanceFragment = new BalanceFragment();
                 return balanceFragment;
             case 2:
-                // movies fragment
-                MoviesFragment moviesFragment = new MoviesFragment();
-                return moviesFragment;
-            case 3:
-                // notifications fragment
-                NotificationsFragment notificationsFragment = new NotificationsFragment();
-                return notificationsFragment;
-
-            case 4:
                 // settings fragment
                 SettingsFragment settingsFragment = new SettingsFragment();
                 return settingsFragment;
@@ -259,16 +248,16 @@ public class MainActivity extends BaseFunct {
                         navItemIndex = 1;
                         CURRENT_TAG = TAG_BALANCE;
                         break;
-                    case R.id.nav_movies:
+                    /*case R.id.nav_movies:
                         navItemIndex = 2;
                         CURRENT_TAG = TAG_MOVIES;
                         break;
                     case R.id.nav_notifications:
                         navItemIndex = 3;
                         CURRENT_TAG = TAG_NOTIFICATIONS;
-                        break;
+                        break;*/
                     case R.id.nav_settings:
-                        navItemIndex = 4;
+                        navItemIndex = 2;
                         CURRENT_TAG = TAG_SETTINGS;
                         break;
                     case R.id.nav_about_us:

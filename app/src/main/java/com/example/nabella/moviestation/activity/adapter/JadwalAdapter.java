@@ -92,6 +92,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
                 i.putExtra("harga", jadwal.getHarga());
                 i.putExtra("jam", jadwal.getJam());
                 i.putExtra("id_movie", jadwal.getId_movie());
+                i.putExtra("id_bioskop", jadwal.getId_bioskop());
                 mContext.startActivity(i);
                 Log.d("idmv", jadwal.getId_movie());
                 /*Toast.makeText(mContext, jadwal.getJam().toString(), Toast.LENGTH_LONG).show();*/

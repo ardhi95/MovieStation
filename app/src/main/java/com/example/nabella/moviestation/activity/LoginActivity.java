@@ -87,21 +87,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Log.e(TAG, "Name: " + personName + ", email: " + email
                     + ", Image: " + personPhotoUrl);
 
-            /*Intent intent = new Intent(getBaseContext(), HomeActivity.class);
-            intent.putExtra("id_customer", idgoogle);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);*/
-
-            /*txtName.setText(personName);
-            txtEmail.setText(email);
-            Glide.with(getApplicationContext()).load(personPhotoUrl)
-                    .thumbnail(0.5f)
-                    .crossFade()
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(imgProfilePic);*/
-
-//            updateUI(true);
             FormData data = new FormData();
             data.add("method", "register");
             data.add("id_customer", idgoogle.toString());
@@ -180,16 +165,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
         if (opr.isDone()) {
-            // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
-            // and the GoogleSignInResult will be available instantly.
             Log.d(TAG, "Got cached sign-in");
             GoogleSignInResult result = opr.get();
             handleSignInResult(result);
         } else {
-            // If the user has not previously signed in on this device or the sign-in has expired,
-            // this asynchronous branch will attempt to sign in the user silently.  Cross-device
-            // single sign-on will occur in this branch.
-//            showProgressDialog();
             opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
                 @Override
                 public void onResult(GoogleSignInResult googleSignInResult) {

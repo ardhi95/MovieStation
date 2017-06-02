@@ -10,6 +10,7 @@ import org.json.JSONObject;
 public class Jadwal {
     private String id_jadwal;
     private String id_movie;
+    private String id_bioskop;
     private String jam;
     private String type_theater;
     private String kuota;
@@ -22,6 +23,7 @@ public class Jadwal {
         this.json = json;
         this.id_jadwal = this.json.getString("id_jadwal");
         this.id_movie = this.json.getString("id_movie");
+        this.id_bioskop = this.json.getString("id_bioskop");
         this.jam = this.json.getString("jam");
         this.type_theater = this.json.getString("type_theater");
         this.kuota = this.json.getString("kuota");
@@ -44,6 +46,14 @@ public class Jadwal {
 
     public void setId_movie(String id_movie) {
         this.id_movie = id_movie;
+    }
+
+    public String getId_bioskop() {
+        return id_bioskop;
+    }
+
+    public void setId_bioskop(String id_bioskop) {
+        this.id_bioskop = id_bioskop;
     }
 
     public String getType_theater() {

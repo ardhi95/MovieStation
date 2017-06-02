@@ -46,13 +46,6 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private BioskopAdapter adapter;
     private List<Bioskop> bioskopList;
-    EditText txtSearch;
-    /*public ArrayAdapter<String> adapter;*/
-    /*EditText txtSearch;
-    public ListView lv;
-    public Bioskop bioskop;
-
-    private ArrayList<Bioskop> listBioskop;*/
 
     public HomeFragment() {
         // Required empty public constructor

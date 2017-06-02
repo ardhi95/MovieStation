@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
 
-import com.example.nabella.moviestation.activity.MainActivity;
 import com.example.nabella.moviestation.entities.Customer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

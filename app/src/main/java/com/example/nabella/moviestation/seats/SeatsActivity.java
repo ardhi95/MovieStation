@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +17,14 @@ import android.widget.Toast;
 import com.example.nabella.moviestation.BaseFunct;
 import com.example.nabella.moviestation.R;
 import com.example.nabella.moviestation.activity.ticket.PaymentActivity;
+import com.example.nabella.moviestation.entities.Film;
+import com.example.nabella.moviestation.lib.FormData;
+import com.example.nabella.moviestation.lib.InternetTask;
+import com.example.nabella.moviestation.lib.OnInternetTaskFinishedListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -30,13 +39,15 @@ public class SeatsActivity extends BaseFunct {
     boolean doubleTap = true;
     ArrayList<String> listKursi = new ArrayList<>(0);
     ArrayList<String> listtmpatduduk = new ArrayList<>(0);
+    public ArrayAdapter<String> adapter;
     int jmlh,total,harga,saldo, biayaLayanan, subtotal;
     Button zoomButton;
     TextView txtSeat,txtSaldo,txtKet;
-    String idj, typ, kuotaSeat, hrg, saldocust, idcust, nmFlm, jmFilm, tglFilm;
+    String idj, typ, kuotaSeat, hrg, saldocust, idcust, kursiStr;
     String kursi = "";
-    String cs, idMovie, jam;
+    String cs, idMovie, jam, idb;
     String[] ary = kursi.split(",");
+    int[] kursiChck ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +64,10 @@ public class SeatsActivity extends BaseFunct {
         typ = i.getStringExtra("type_theater");
         kuotaSeat = i.getStringExtra("kuota");
         jam = i.getStringExtra("jam");
+        idb = i.getStringExtra("id_bioskop");
+
+        //kursiChck = new int[Integer.parseInt(String.valueOf(listtmpatduduk))];
+
 
         harga = Integer.parseInt(hrg);
         saldocust = super.customer.getSaldo();
@@ -68,10 +83,6 @@ public class SeatsActivity extends BaseFunct {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(SeatsActivity.this, PaymentActivity.class);
-                /*i.putExtra("nama", idj.toString());
-                i.putExtra("jam", idcust.toString());
-                i.putExtra("tanggal", String.valueOf(listKursi));*/
-                //i.putExtra("poster", String.valueOf(listtmpatduduk));
                 Log.d("intennya", String.valueOf(biayaLayanan)+"/"+String.valueOf(total));
                 i.putExtra("jmlh", String.valueOf(jmlh));
                 i.putExtra("subtotal", String.valueOf(subtotal));
@@ -79,11 +90,16 @@ public class SeatsActivity extends BaseFunct {
                 i.putExtra("total", String.valueOf(total));
                 i.putExtra("id_movie", idMovie);
                 i.putExtra("jam", jam);
+                i.putExtra("id_jadwal", idj);
+                i.putExtra("id_bioskop", idb);
+                i.putExtra("id_kursi", String.valueOf(listKursi));
                 startActivity(i);
                 Toast.makeText(SeatsActivity.this, "Proses "+String.valueOf(jmlh)+" Kursi", Toast.LENGTH_LONG).show();
             }
         });
         pilihType();
+        getKursi();
+        Log.d("kursidari", String.valueOf(listtmpatduduk));
 
     }
 
@@ -223,6 +239,11 @@ public class SeatsActivity extends BaseFunct {
                 if ((j >= 2 && j <= 2)||(j >= 5 && j <= 5) || (j >= 8 && j <= 8)) {
                     seat.status = HallScheme.SeatStatus.EMPTY;
                 }
+                for (int h = 0; h < listtmpatduduk.size(); h++){
+                    if (String.valueOf(seat.id).equals(listtmpatduduk)){
+                        seat.status = HallScheme.SeatStatus.BUSY;
+                    }
+                }
                 seats[i][j] = seat;
             }
         return seats;
@@ -308,5 +329,36 @@ public class SeatsActivity extends BaseFunct {
                 seats[i][j] = seat;
             }
         return seats;
+    }
+
+    public void getKursi(){
+        FormData data = new FormData();
+        data.add("method", "checkTiket");
+        data.add("id_jadwal", idj);
+        InternetTask uploadTask = new InternetTask("Ticket", data);
+        uploadTask.setOnInternetTaskFinishedListener(new OnInternetTaskFinishedListener() {
+            @Override
+            public void OnInternetTaskFinished(InternetTask internetTask) {
+                try {
+                    JSONObject jsonObject = new JSONObject(internetTask.getResponseString());
+                    if (jsonObject.get("code").equals(200)){
+                        JSONArray jsonArray = jsonObject.getJSONArray("data");
+                        //if (jsonArray.length() > 0){
+                        ArrayList<String> listtgl = new ArrayList<String>();
+                        for (int i = 0; i < jsonArray.length();i++){
+                                listtmpatduduk.add((String) jsonArray.getJSONObject(i).get("id_kursi"));
+                        }
+                        //Toast.makeText(getContext(),jsonArray.toString(),Toast.LENGTH_SHORT).show();
+                    }else{
+                    }
+                } catch (JSONException e) {
+                }
+            }
+
+            @Override
+            public void OnInternetTaskFailed(InternetTask internetTask) {
+            }
+        });
+        uploadTask.execute();
     }
 }
