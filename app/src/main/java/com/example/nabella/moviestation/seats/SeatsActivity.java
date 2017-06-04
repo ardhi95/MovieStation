@@ -26,7 +26,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import by.anatoldeveloper.hallscheme.hall.HallScheme;
 import by.anatoldeveloper.hallscheme.hall.ScenePosition;
@@ -36,18 +39,18 @@ import by.anatoldeveloper.hallscheme.view.ZoomableImageView;
 
 
 public class SeatsActivity extends BaseFunct {
-    boolean doubleTap = true;
+
     ArrayList<String> listKursi = new ArrayList<>(0);
-    ArrayList<String> listtmpatduduk = new ArrayList<>(0);
+    ArrayList<String> kursipesan = new ArrayList<>(0);
     public ArrayAdapter<String> adapter;
     int jmlh,total,harga,saldo, biayaLayanan, subtotal;
     Button zoomButton;
     TextView txtSeat,txtSaldo,txtKet;
-    String idj, typ, kuotaSeat, hrg, saldocust, idcust, kursiStr;
+    String idj, typ, kuotaSeat, hrg, saldocust, idcust, tanggal;
     String kursi = "";
     String cs, idMovie, jam, idb;
+    String[] idkursiArray;
     String[] ary = kursi.split(",");
-    int[] kursiChck ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +102,6 @@ public class SeatsActivity extends BaseFunct {
         });
         pilihType();
         getKursi();
-        Log.d("kursidari", String.valueOf(listtmpatduduk));
 
     }
 
@@ -136,7 +138,6 @@ public class SeatsActivity extends BaseFunct {
                     @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
                     public void selectSeat(int id) {
-                        listtmpatduduk.add(String.valueOf(cs));
                         listKursi.add(String.valueOf(id));
                         jmlhbayar();
 
@@ -145,7 +146,6 @@ public class SeatsActivity extends BaseFunct {
                     @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
                     public void unSelectSeat(int id) {
-                        listtmpatduduk.remove(String.valueOf(cs));
                         listKursi.remove(String.valueOf(id));
                         jmlhbayar();
                     }
@@ -160,7 +160,6 @@ public class SeatsActivity extends BaseFunct {
                     @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
                     public void selectSeat(int id) {
-                        listtmpatduduk.add(String.valueOf(cs));
                         listKursi.add(String.valueOf(id));
                         jmlhbayar();
 
@@ -169,7 +168,6 @@ public class SeatsActivity extends BaseFunct {
                     @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
                     public void unSelectSeat(int id) {
-                        listtmpatduduk.remove(String.valueOf(cs));
                         listKursi.remove(String.valueOf(id));
                         jmlhbayar();
                     }
@@ -184,7 +182,6 @@ public class SeatsActivity extends BaseFunct {
                     @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
                     public void selectSeat(int id) {
-                        listtmpatduduk.add(String.valueOf(cs));
                         listKursi.add(String.valueOf(id));
                         jmlhbayar();
                     }
@@ -192,7 +189,6 @@ public class SeatsActivity extends BaseFunct {
                     @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
                     public void unSelectSeat(int id) {
-                        listtmpatduduk.remove(String.valueOf(cs));
                         listKursi.remove(String.valueOf(id));
                         jmlhbayar();
                     }
@@ -203,6 +199,7 @@ public class SeatsActivity extends BaseFunct {
     }
 
     public Seat[][] goldSeats() {
+        Log.d("kursiiiii", String.valueOf(kursipesan));
         Seat seats[][] = new Seat[9][11];
         int k = 0;
         for (int i = 0; i < 9; i++)
@@ -239,11 +236,18 @@ public class SeatsActivity extends BaseFunct {
                 if ((j >= 2 && j <= 2)||(j >= 5 && j <= 5) || (j >= 8 && j <= 8)) {
                     seat.status = HallScheme.SeatStatus.EMPTY;
                 }
-                for (int h = 0; h < listtmpatduduk.size(); h++){
-                    if (String.valueOf(seat.id).equals(listtmpatduduk)){
+                //Log.d("yayaya", String.valueOf(kursipesan));
+                for (int h = 0; h < idkursiArray.length;h++){
+                    Log.d("testkursi", String.valueOf(idkursiArray[h]));
+                    if (String.valueOf(seat.id).equals(idkursiArray[h])){
                         seat.status = HallScheme.SeatStatus.BUSY;
                     }
                 }
+                /*for (int h = 0; h < array.length; h++){
+                    if (String.valueOf(seat.id).equals(array[h])){
+                        seat.status = HallScheme.SeatStatus.BUSY;
+                    }
+                }*/
                 seats[i][j] = seat;
             }
         return seats;
@@ -285,6 +289,11 @@ public class SeatsActivity extends BaseFunct {
                 if ((j >= 6 && j <= 7 && i < 7)||(j >= 14 && j <= 15 && i < 7)) {
                     seat.status = HallScheme.SeatStatus.EMPTY;
                 }
+                /*for (int h = 0; h < idkursiArray.length; h++) {
+                    if (String.valueOf(seat.id).equals(idkursiArray)) {
+                        seat.status = HallScheme.SeatStatus.BUSY;
+                    }
+                }*/
                 seats[i][j] = seat;
             }
         return seats;
@@ -326,15 +335,46 @@ public class SeatsActivity extends BaseFunct {
                 if ((j >= 6 && j <= 7 && i < 11)||(j >= 12 && j <= 13 && i < 11)) {
                     seat.status = HallScheme.SeatStatus.EMPTY;
                 }
+                /*for (int h = 0; h < idkursiArray.length; h++) {
+                    if (String.valueOf(seat.id).equals(idkursiArray)) {
+                        seat.status = HallScheme.SeatStatus.BUSY;
+                    }
+                }*/
                 seats[i][j] = seat;
             }
         return seats;
     }
 
+    public void getDate(){
+        Date curDate = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        tanggal = format.format(curDate);
+    }
+
+    public static ArrayList<String> ParseIdKursi(ArrayList<String> input){
+        ArrayList<String> result = new ArrayList<String>();
+        for (int i=0;i < input.size();i++){
+            //String data = input.get(i);
+            result.add(input.get(i));
+            //String[] parsed = data.split(",");
+            //result.add(String.valueOf(parsed));
+            //System.out.println(data);
+        }
+        String haha = String.valueOf(result).replace("[", "").replace("]", "").replaceAll(" ","");
+        String[] hihi = haha.split(",");
+        for (int j=0;j<hihi.length;j++){
+            Log.d("parsekursi" , String.valueOf(hihi[j]));
+        }
+        return result;
+    }
+
     public void getKursi(){
+        getDate();
         FormData data = new FormData();
         data.add("method", "checkTiket");
         data.add("id_jadwal", idj);
+        data.add("tgl_beli", tanggal);
+        Log.d("testkursi", tanggal);
         InternetTask uploadTask = new InternetTask("Ticket", data);
         uploadTask.setOnInternetTaskFinishedListener(new OnInternetTaskFinishedListener() {
             @Override
@@ -343,13 +383,14 @@ public class SeatsActivity extends BaseFunct {
                     JSONObject jsonObject = new JSONObject(internetTask.getResponseString());
                     if (jsonObject.get("code").equals(200)){
                         JSONArray jsonArray = jsonObject.getJSONArray("data");
-                        //if (jsonArray.length() > 0){
-                        ArrayList<String> listtgl = new ArrayList<String>();
                         for (int i = 0; i < jsonArray.length();i++){
-                                listtmpatduduk.add((String) jsonArray.getJSONObject(i).get("id_kursi"));
+                            kursipesan.add((String) jsonArray.getJSONObject(i).get("id_kursi"));
+
+                            //String idkusri = (String) jsonArray.getJSONObject(i).get("id_kursi");
+                            //idkursiArray = idkusri.split(",");
+
                         }
-                        //Toast.makeText(getContext(),jsonArray.toString(),Toast.LENGTH_SHORT).show();
-                    }else{
+                        ParseIdKursi(kursipesan);
                     }
                 } catch (JSONException e) {
                 }

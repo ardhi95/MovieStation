@@ -142,7 +142,8 @@ public class PaymentActivity extends BaseFunct {
         data.add("kursi", pJml);
         data.add("tgl_beli", tgl);
         data.add("jml_uang", pJumlah);
-        Log.d("datakirimp", String.valueOf(data));
+        data.add("sub_total", pSubtotal);
+        Log.d("datakirimp", String.valueOf(pJumlah));
         InternetTask uploadTask = new InternetTask("Ticket", data);
         uploadTask.setOnInternetTaskFinishedListener(new OnInternetTaskFinishedListener() {
             @Override

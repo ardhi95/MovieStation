@@ -116,16 +116,13 @@ public class SettingsFragment extends Fragment {
                             }
                         }
                     }else{
-//                            Snackbar.make(clContent, "Liked!", Snackbar.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
-                    //                       Snackbar.make(clContent, e.getMessage(), Snackbar.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void OnInternetTaskFailed(InternetTask internetTask) {
-                //                   Snackbar.make(clContent, internetTask.getException().getMessage(), Snackbar.LENGTH_SHORT).show();
             }
         });
         uploadTask.execute();

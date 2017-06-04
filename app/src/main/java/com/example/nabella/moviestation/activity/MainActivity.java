@@ -3,10 +3,12 @@ package com.example.nabella.moviestation.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -30,11 +32,13 @@ import com.example.nabella.moviestation.fragment.HomeFragment;
 import com.example.nabella.moviestation.fragment.SettingsFragment;
 import com.example.nabella.moviestation.other.CircleTransform;
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
-public class MainActivity extends BaseFunct {
+public class MainActivity extends BaseFunct implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener{
 
     private NavigationView navigationView;
     private DrawerLayout drawer;
@@ -82,6 +86,15 @@ public class MainActivity extends BaseFunct {
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
 
         // Navigation view header
         navHeader = navigationView.getHeaderView(0);
@@ -379,22 +392,18 @@ public class MainActivity extends BaseFunct {
         return super.onOptionsItemSelected(item);
     }
 
-
-    /*public void onClick(View v) {
-        switch (v.getId()) {
-            // ...
-            case R.id.action_logout:
-                signOut();
-                break;
-            // ...
-        }
-    }*/
     private void signOut() {
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(Status status) {
-                        mGoogleApiClient.connect();
+                        if (mGoogleApiClient.isConnected()) {
+                            Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient);
+                            //mGoogleApiClient.disconnect();
+                            mGoogleApiClient.connect();
+                            Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                            startActivity(i);
+                        }
                     }
                 });
     }
@@ -415,5 +424,15 @@ public class MainActivity extends BaseFunct {
                 startActivity(mainIntent);
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 }
