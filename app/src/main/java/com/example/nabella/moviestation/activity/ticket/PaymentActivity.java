@@ -18,6 +18,8 @@ import com.example.nabella.moviestation.BaseFunct;
 import com.example.nabella.moviestation.R;
 import com.example.nabella.moviestation.entities.Film;
 import com.example.nabella.moviestation.entities.Jadwal;
+import com.example.nabella.moviestation.fragment.HomeFragment;
+import com.example.nabella.moviestation.fragment.SettingsFragment;
 import com.example.nabella.moviestation.lib.FormData;
 import com.example.nabella.moviestation.lib.InternetTask;
 import com.example.nabella.moviestation.lib.OnInternetTaskFinishedListener;
@@ -58,7 +60,7 @@ public class PaymentActivity extends BaseFunct {
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(PaymentActivity.this,"Test Click",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(PaymentActivity.this,"Test Click",Toast.LENGTH_SHORT).show();
                 addTicket();
             }
         });

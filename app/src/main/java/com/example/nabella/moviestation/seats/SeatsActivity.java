@@ -3,8 +3,10 @@ package com.example.nabella.moviestation.seats;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +31,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import by.anatoldeveloper.hallscheme.hall.HallScheme;
@@ -40,8 +43,8 @@ import by.anatoldeveloper.hallscheme.view.ZoomableImageView;
 
 public class SeatsActivity extends BaseFunct {
 
-    ArrayList<String> listKursi = new ArrayList<>(0);
-    ArrayList<String> kursipesan = new ArrayList<>(0);
+    ArrayList<String> listKursi = new ArrayList<>();
+    ArrayList<String> kursipesan = new ArrayList<>();
     public ArrayAdapter<String> adapter;
     int jmlh,total,harga,saldo, biayaLayanan, subtotal;
     Button zoomButton;
@@ -102,6 +105,18 @@ public class SeatsActivity extends BaseFunct {
         });
         pilihType();
         getKursi();
+// cobaen maneh, null mas datanya
+        // sek
+        // cobaen, sek null yo
+        //yang ini nggk masuk mas
+        // cobaen, masih kosong mas, apa mungkin script ku salah struktur?
+        // coba deloken log e, sing di proses kursipesan-2 disik
+        // nah metu ngunu,brarti buth refresh buat dpt id dr kursipesan?
+        // koyoke iku value sebelumnya
+        Log.d("kursipesan-2",String.valueOf(KursiPesanSingleton.getInstance().getData()));
+        Intent mServiceIntent = new Intent(this, RSSPullService.class);
+        //mServiceIntent.setData(Uri.parse(dataUrl));
+        this.startService(mServiceIntent);
 
     }
 
@@ -199,7 +214,9 @@ public class SeatsActivity extends BaseFunct {
     }
 
     public Seat[][] goldSeats() {
-        Log.d("kursiiiii", String.valueOf(kursipesan));
+        String kur = String.valueOf(KursiPesanSingleton.getInstance().getData());
+        String skur = kur.replace("[", "").replace("]", "").replaceAll(" ","");
+        String[] arrkur = skur.split(",");
         Seat seats[][] = new Seat[9][11];
         int k = 0;
         for (int i = 0; i < 9; i++)
@@ -236,23 +253,20 @@ public class SeatsActivity extends BaseFunct {
                 if ((j >= 2 && j <= 2)||(j >= 5 && j <= 5) || (j >= 8 && j <= 8)) {
                     seat.status = HallScheme.SeatStatus.EMPTY;
                 }
-                //Log.d("yayaya", String.valueOf(kursipesan));
-                for (int h = 0; h < idkursiArray.length;h++){
-                    Log.d("testkursi", String.valueOf(idkursiArray[h]));
-                    if (String.valueOf(seat.id).equals(idkursiArray[h])){
+                for (int c = 0; c < arrkur.length; c++){
+                    //Log.d("kursipesan-3", String.valueOf(arrkur[c]));
+                    if (String.valueOf(seat.id).equals(arrkur[c])){
                         seat.status = HallScheme.SeatStatus.BUSY;
                     }
                 }
-                /*for (int h = 0; h < array.length; h++){
-                    if (String.valueOf(seat.id).equals(array[h])){
-                        seat.status = HallScheme.SeatStatus.BUSY;
-                    }
-                }*/
                 seats[i][j] = seat;
             }
         return seats;
     }
     public Seat[][] premierSeats() {
+        String kur = String.valueOf(KursiPesanSingleton.getInstance().getData());
+        String skur = kur.replace("[", "").replace("]", "").replaceAll(" ","");
+        String[] arrkur = skur.split(",");
         Seat seats[][] = new Seat[8][22];
         int k = 0;
         for (int i = 0; i < 8; i++)
@@ -289,16 +303,20 @@ public class SeatsActivity extends BaseFunct {
                 if ((j >= 6 && j <= 7 && i < 7)||(j >= 14 && j <= 15 && i < 7)) {
                     seat.status = HallScheme.SeatStatus.EMPTY;
                 }
-                /*for (int h = 0; h < idkursiArray.length; h++) {
-                    if (String.valueOf(seat.id).equals(idkursiArray)) {
+                for (int c = 0; c < arrkur.length; c++){
+                    //Log.d("kursipesan-3", String.valueOf(arrkur[c]));
+                    if (String.valueOf(seat.id).equals(arrkur[c])){
                         seat.status = HallScheme.SeatStatus.BUSY;
                     }
-                }*/
+                }
                 seats[i][j] = seat;
             }
         return seats;
     }
     public Seat[][] regulerSeats() {
+        String kur = String.valueOf(KursiPesanSingleton.getInstance().getData());
+        String skur = kur.replace("[", "").replace("]", "").replaceAll(" ","");
+        String[] arrkur = skur.split(",");
         Seat seats[][] = new Seat[12][20];
         int k = 0;
         for (int i = 0; i < 12; i++)
@@ -335,11 +353,12 @@ public class SeatsActivity extends BaseFunct {
                 if ((j >= 6 && j <= 7 && i < 11)||(j >= 12 && j <= 13 && i < 11)) {
                     seat.status = HallScheme.SeatStatus.EMPTY;
                 }
-                /*for (int h = 0; h < idkursiArray.length; h++) {
-                    if (String.valueOf(seat.id).equals(idkursiArray)) {
+                for (int c = 0; c < arrkur.length; c++){
+                    //Log.d("kursipesan-3", String.valueOf(arrkur[c]));
+                    if (String.valueOf(seat.id).equals(arrkur[c])){
                         seat.status = HallScheme.SeatStatus.BUSY;
                     }
-                }*/
+                }
                 seats[i][j] = seat;
             }
         return seats;
@@ -351,7 +370,27 @@ public class SeatsActivity extends BaseFunct {
         tanggal = format.format(curDate);
     }
 
+    // digoleki sing ono lenght e
     public static ArrayList<String> ParseIdKursi(ArrayList<String> input){
+        ArrayList<String> result = new ArrayList<String>();
+        for (int i=0;i<input.size();i++){
+            String data = input.get(i);
+            // iki ngecek, lak data ne null, continue, maksute proses data selanjutnya, cobaen disik
+            if (data == null) {
+                continue;
+            }
+
+            String[] parsed = data.split(",");
+            // masalahe ndek kene.
+            for (int j=0;j<parsed.length;j++){
+                result.add(parsed[j]);
+            }
+        }
+        Log.d("cekKursi", String.valueOf(result));
+        return result;
+    }
+
+    /*public static ArrayList<String> ParseIdKursi(ArrayList<String> input){
         ArrayList<String> result = new ArrayList<String>();
         for (int i=0;i < input.size();i++){
             //String data = input.get(i);
@@ -366,8 +405,9 @@ public class SeatsActivity extends BaseFunct {
             Log.d("parsekursi" , String.valueOf(hihi[j]));
         }
         return result;
-    }
+    }*/
 
+    // ndi sing nyeluk getKursi?
     public void getKursi(){
         getDate();
         FormData data = new FormData();
@@ -375,6 +415,7 @@ public class SeatsActivity extends BaseFunct {
         data.add("id_jadwal", idj);
         data.add("tgl_beli", tanggal);
         Log.d("testkursi", tanggal);
+
         InternetTask uploadTask = new InternetTask("Ticket", data);
         uploadTask.setOnInternetTaskFinishedListener(new OnInternetTaskFinishedListener() {
             @Override
@@ -383,17 +424,31 @@ public class SeatsActivity extends BaseFunct {
                     JSONObject jsonObject = new JSONObject(internetTask.getResponseString());
                     if (jsonObject.get("code").equals(200)){
                         JSONArray jsonArray = jsonObject.getJSONArray("data");
+                        ArrayList<String> kursiList = new ArrayList<String>();
                         for (int i = 0; i < jsonArray.length();i++){
-                            kursipesan.add((String) jsonArray.getJSONObject(i).get("id_kursi"));
-
+                            //datanya dari sini kan mas?
+                            // coba di log, metu gak datane
+                            //keluar mas, itu di debug
+                            kursiList.add((String) jsonArray.getJSONObject(i).get("id_kursi"));
                             //String idkusri = (String) jsonArray.getJSONObject(i).get("id_kursi");
                             //idkursiArray = idkusri.split(",");
 
+                            // sek tak mikir, iya mas, itu resultnya apa nggk diluar try?
                         }
-                        ParseIdKursi(kursipesan);
+                        // terus iki lapo?
+                        //ini ngirim datanya kan?ke parseidkursi
+
+                        KursiPesanSingleton.getInstance().setData(ParseIdKursi(kursiList));
+                        // sing iki ono isine?ada
+                        Log.d("kursipesan", String.valueOf(KursiPesanSingleton.getInstance().getData()));
+                        //terus, result e digawe opo?
+                        //nggk tau mas
+                        // maksutmu data tekan jsonobject, diparse, terus disimpen ndek kursipesan?nah iyaa mas, cobaen
+                        //tetep mas
                     }
                 } catch (JSONException e) {
                 }
+
             }
 
             @Override
@@ -401,5 +456,25 @@ public class SeatsActivity extends BaseFunct {
             }
         });
         uploadTask.execute();
+
+    }
+}
+
+
+class KursiPesanSingleton {
+    static KursiPesanSingleton ME;
+    private ArrayList<String> data = new ArrayList<>();
+    private KursiPesanSingleton(){}
+    public static synchronized KursiPesanSingleton getInstance(){
+        if (ME == null){
+            ME = new KursiPesanSingleton();
+        }
+        return ME;
+    }
+    public void setData(ArrayList<String> input){
+        this.data = input;
+    }
+    public ArrayList<String> getData() {
+        return this.data;
     }
 }

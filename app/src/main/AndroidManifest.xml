@@ -16,6 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service
+            android:name=".RSSPullService"
+            android:exported="false"/>
         <activity
             android:name=".other.Splashscreen"
             android:label="@string/app_name">
