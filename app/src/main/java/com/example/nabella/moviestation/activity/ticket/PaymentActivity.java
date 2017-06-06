@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.nabella.moviestation.BaseFunct;
 import com.example.nabella.moviestation.R;
+import com.example.nabella.moviestation.activity.LoginActivity;
+import com.example.nabella.moviestation.activity.MainActivity;
 import com.example.nabella.moviestation.entities.Film;
 import com.example.nabella.moviestation.entities.Jadwal;
 import com.example.nabella.moviestation.fragment.HomeFragment;
@@ -60,10 +62,12 @@ public class PaymentActivity extends BaseFunct {
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(PaymentActivity.this,"Test Click",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(PaymentActivity.this,"Test Click",Toast.LENGTH_SHORT).show();
                 addTicket();
-                /*Intent i = new Intent(PaymentActivity.this, DetailsTikectActivity.class);
-                startActivity(i);*/
+                Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
         });
         getDate();
@@ -157,6 +161,7 @@ public class PaymentActivity extends BaseFunct {
                     JSONObject jsonObject = new JSONObject(internetTask.getResponseString());
                     if (jsonObject.get("code").equals(200)){
                         Toast.makeText(PaymentActivity.this,"Berhasil beli",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PaymentActivity.this,"Cek Tiket Anda di Menu Tiket",Toast.LENGTH_SHORT).show();
                     }else{
                         Toast.makeText(PaymentActivity.this,"Gagal",Toast.LENGTH_SHORT).show();
                     }

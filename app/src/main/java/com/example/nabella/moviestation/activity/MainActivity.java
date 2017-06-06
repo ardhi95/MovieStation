@@ -1,9 +1,12 @@
 package com.example.nabella.moviestation.activity;
 
 import android.content.Intent;
+import android.icu.text.NumberFormat;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -73,6 +76,7 @@ public class MainActivity extends BaseFunct implements View.OnClickListener, Goo
     private GoogleApiClient mGoogleApiClient;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,8 +113,7 @@ public class MainActivity extends BaseFunct implements View.OnClickListener, Goo
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar.make(view, "Saldo Anda Rp. "+customer.getSaldo(), Snackbar.LENGTH_LONG).show();
             }
         });
 
@@ -402,6 +405,8 @@ public class MainActivity extends BaseFunct implements View.OnClickListener, Goo
                             //mGoogleApiClient.disconnect();
                             mGoogleApiClient.connect();
                             Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(i);
                         }
                     }

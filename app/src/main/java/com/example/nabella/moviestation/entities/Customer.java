@@ -11,7 +11,6 @@ public class Customer {
     private String id_customer;
     private String email;
     private String nama;
-    private String gender;
     private String no_hp;
     private String saldo;
     private String foto;
@@ -24,7 +23,6 @@ public class Customer {
         this.id_customer = this.json.getString("id_customer");
         this.email = this.json.getString("email");
         this.nama = this.json.getString("nama");
-        this.gender = this.json.getString("gender");
         this.no_hp = this.json.getString("no_hp");
         this.saldo = this.json.getString("saldo");
     }
@@ -42,13 +40,6 @@ public class Customer {
     }
     public void setNama(String nama) {
         this.nama = nama;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public String getNo_hp() {

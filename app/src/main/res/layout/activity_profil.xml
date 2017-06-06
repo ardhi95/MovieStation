@@ -38,16 +38,6 @@
                 android:scaleType="fitXY"
                 android:src="@mipmap/ic_launcher" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:orientation="vertical"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:id="@+id/linearLayout">
-
-            </LinearLayout>
-
             <ImageView
                 android:id="@+id/img_profile"
                 android:layout_width="150dp"
@@ -110,11 +100,11 @@
             android:layout_alignStart="@+id/imageView6"
             android:layout_below="@+id/txt_proEmail"
             android:layout_marginTop="14dp"
-            app:srcCompat="@drawable/ic_wc_black_24dp"
+            app:srcCompat="@drawable/ic_phone_black_24dp"
             tools:ignore="VectorDrawableCompat" />
 
         <TextView
-            android:id="@+id/txt_proGender"
+            android:id="@+id/txt_proPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/txt_proEmail"
@@ -122,27 +112,6 @@
             android:layout_alignTop="@+id/imageView7"
             android:text="TextView"
             android:textSize="18sp"/>
-
-        <ImageView
-            android:id="@+id/imageView9"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            app:srcCompat="@drawable/ic_phone_black_24dp"
-            tools:ignore="VectorDrawableCompat"
-            android:layout_below="@+id/txt_proGender"
-            android:layout_alignLeft="@+id/imageView7"
-            android:layout_alignStart="@+id/imageView7"
-            android:layout_marginTop="14dp" />
-
-        <TextView
-            android:id="@+id/txt_proPhone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/txt_proGender"
-            android:layout_alignStart="@+id/txt_proGender"
-            android:layout_alignTop="@+id/imageView9"
-            android:text="TextView"
-            android:textSize="18sp" />
 
         <ImageView
             android:id="@+id/btn_edit_phn"

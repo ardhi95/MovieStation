@@ -1,5 +1,6 @@
 package com.example.nabella.moviestation.seats;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -7,17 +8,21 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nabella.moviestation.BaseFunct;
 import com.example.nabella.moviestation.R;
+import com.example.nabella.moviestation.activity.ProfilActivity;
 import com.example.nabella.moviestation.activity.ticket.PaymentActivity;
 import com.example.nabella.moviestation.entities.Film;
 import com.example.nabella.moviestation.lib.FormData;
@@ -42,6 +47,10 @@ import by.anatoldeveloper.hallscheme.view.ZoomableImageView;
 
 
 public class SeatsActivity extends BaseFunct {
+
+    AlertDialog.Builder dialog;
+    LayoutInflater inflater;
+    View dialogView;
 
     ArrayList<String> listKursi = new ArrayList<>();
     ArrayList<String> kursipesan = new ArrayList<>();
@@ -103,8 +112,9 @@ public class SeatsActivity extends BaseFunct {
                 Toast.makeText(SeatsActivity.this, "Proses "+String.valueOf(jmlh)+" Kursi", Toast.LENGTH_LONG).show();
             }
         });
-        pilihType();
+
         getKursi();
+        checkKursiDialog();
 // cobaen maneh, null mas datanya
         // sek
         // cobaen, sek null yo
@@ -114,12 +124,27 @@ public class SeatsActivity extends BaseFunct {
         // nah metu ngunu,brarti buth refresh buat dpt id dr kursipesan?
         // koyoke iku value sebelumnya
         Log.d("kursipesan-2",String.valueOf(KursiPesanSingleton.getInstance().getData()));
-        Intent mServiceIntent = new Intent(this, RSSPullService.class);
-        //mServiceIntent.setData(Uri.parse(dataUrl));
-        this.startService(mServiceIntent);
 
     }
+    public void checkKursiDialog(){
+        dialog = new AlertDialog.Builder(SeatsActivity.this);
+        inflater = getLayoutInflater();
+        dialog.setView(dialogView);
+        dialog.setCancelable(true);
+        dialog.setTitle("Silahkan Memilih Tempat Duduk");
 
+        dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                pilihType();
+                dialog.dismiss();
+            }
+        });
+
+
+        dialog.show();
+    }
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void jmlhbayar(){
         jmlh = listKursi.size();

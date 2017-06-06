@@ -36,7 +36,7 @@ import static com.example.nabella.moviestation.R.id.fab;
 
 
 public class ProfilActivity extends BaseFunct {
-    TextView txtNama, txtEmail, txtGender, txtPhone;
+    TextView txtNama, txtEmail, txtPhone;
     EditText txt_Phone;
     private ImageView mButton;
     AlertDialog.Builder dialog;
@@ -54,7 +54,6 @@ public class ProfilActivity extends BaseFunct {
 
         txtNama = (TextView)findViewById(R.id.txt_proNama);
         txtEmail = (TextView)findViewById(R.id.txt_proEmail);
-        txtGender = (TextView)findViewById(R.id.txt_proGender);
         txtPhone = (TextView)findViewById(R.id.txt_proPhone);
 
         mButton = (ImageView) findViewById(R.id.btn_edit_phn);
@@ -104,7 +103,6 @@ public class ProfilActivity extends BaseFunct {
                 .into(super.imgProfile);
         txtNama.setText(super.customer.getNama());
         txtEmail.setText(super.customer.getEmail());
-        txtGender.setText(super.customer.getGender());
         txtPhone.setText(super.customer.getNo_hp());
     }
 
