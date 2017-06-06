@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.example.nabella.moviestation.R;
 import com.example.nabella.moviestation.entities.Customer;
@@ -112,7 +113,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                         }else{
-//                            Snackbar.make(clContent, "Liked!", Snackbar.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Cek Koneksi Internet Anda!", Toast.LENGTH_LONG).show();
                         }
                     } catch (JSONException e) {
                         //Snackbar.make(clContent, e.getMessage(), Snackbar.LENGTH_SHORT).show();

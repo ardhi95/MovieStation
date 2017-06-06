@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.nabella.moviestation.R;
+import com.example.nabella.moviestation.activity.ticket.DetailsTikectActivity;
 import com.example.nabella.moviestation.activity.ticket.MovieB_Activity;
 import com.example.nabella.moviestation.entities.Bioskop;
 import com.example.nabella.moviestation.entities.Tiket;
@@ -91,7 +92,9 @@ public class TiketAdapter extends RecyclerView.Adapter<TiketAdapter.MyViewHolder
         holder.crd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+            Intent i = new Intent(mContext, DetailsTikectActivity.class);
+                i.putExtra("id_pembelian", tiket.getId_pembelian().toString());
+                mContext.startActivity(i);
                 Toast.makeText(mContext, tiket.getId_pembelian().toString(), Toast.LENGTH_LONG).show();
             }
         });

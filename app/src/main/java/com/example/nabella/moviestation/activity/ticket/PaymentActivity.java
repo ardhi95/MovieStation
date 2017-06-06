@@ -60,8 +60,10 @@ public class PaymentActivity extends BaseFunct {
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(PaymentActivity.this,"Test Click",Toast.LENGTH_SHORT).show();
+                Toast.makeText(PaymentActivity.this,"Test Click",Toast.LENGTH_SHORT).show();
                 addTicket();
+                /*Intent i = new Intent(PaymentActivity.this, DetailsTikectActivity.class);
+                startActivity(i);*/
             }
         });
         getDate();
@@ -145,6 +147,7 @@ public class PaymentActivity extends BaseFunct {
         data.add("tgl_beli", tgl);
         data.add("jml_uang", pJumlah);
         data.add("sub_total", pSubtotal);
+        data.add("biaya_layanan", pLayanan);
         Log.d("datakirimp", String.valueOf(pJumlah));
         InternetTask uploadTask = new InternetTask("Ticket", data);
         uploadTask.setOnInternetTaskFinishedListener(new OnInternetTaskFinishedListener() {

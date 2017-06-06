@@ -446,6 +446,7 @@ public class SeatsActivity extends BaseFunct {
                         // maksutmu data tekan jsonobject, diparse, terus disimpen ndek kursipesan?nah iyaa mas, cobaen
                         //tetep mas
                     }
+                    //Toast.makeText(SeatsActivity.this, "Gagal dapat kursi",Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                 }
 
