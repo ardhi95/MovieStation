@@ -79,10 +79,10 @@ public class Tab_S_HFragment extends Fragment {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Saldo selecetedHS = listSaldo.get(position);
+                /*Saldo selecetedHS = listSaldo.get(position);
                 Intent i = new Intent(getContext(), Detail_HSActivity.class);
 
-                startActivity(i);
+                startActivity(i);*/
             }
         });
         this.listSaldo = new ArrayList<>();

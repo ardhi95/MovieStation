@@ -30,6 +30,14 @@
         <item>Notifications</item>
         <item>Settings</item>
     </string-array>
+    <!-- prosedur transfer-->
+    <string name="prosedur1">1. Transfer uang sesuai dengan nominal yang disediakan di form atas ke no rekening : BRI 6280-01011955-50-5 A/N : Movie Station</string>
+    <string name="prosedur2">2. Simpan bukti transfer, dan catat nomer transaksi pada struk.</string>
+    <string name="prosedur3">3. Masukkan nomer transaksi dan nominal sesuai dengan struk yang sudah di transfer ke dalam form di atas.</string>
+    <string name="prosedur4">4. Tunggu konfirmasi pembelian saldo.</string>
+
+    <!--About Us-->
+    <string name="aboutus">Movie Station adalah layanan untuk menyediakan penjualan tiket bioskop bagi semua orang. Aplikasi ini dibuat oleh Ardhi Nur Fauzi dan Tika Kusuma Wardhani</string>
 
     <string name="activity_title_about_us">About Us</string>
     <string name="activity_title_privacy_policy">Privacy Policy</string>

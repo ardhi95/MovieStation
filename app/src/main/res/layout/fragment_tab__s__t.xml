@@ -73,7 +73,8 @@
         android:background="@color/colorPrimary"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/relativeLayout3">
+        android:layout_below="@+id/relativeLayout3"
+        android:id="@+id/relativeLayout8">
         <Button
             android:id="@+id/btn_krmSaldo"
             android:layout_width="match_parent"
@@ -81,4 +82,69 @@
             android:layout_centerHorizontal="true"
             android:text="Proses Saldo" />
     </RelativeLayout>
+
+    <ScrollView
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignLeft="@+id/relativeLayout8"
+        android:layout_alignStart="@+id/relativeLayout8"
+        android:layout_below="@+id/relativeLayout8"
+        android:layout_marginTop="18dp"
+        android:id="@+id/relativeLayout9">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Prosedur Pembelian Saldo"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/prosedur1"
+                android:layout_below="@+id/textView3"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="12dp" />
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/prosedur2"
+                android:layout_below="@+id/textView4"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="12dp" />
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/prosedur3"
+                android:layout_below="@+id/textView5"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="12dp" />
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/prosedur4"
+                android:layout_below="@+id/textView6"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="12dp" />
+        </RelativeLayout>
+    </ScrollView>
+
+
 </RelativeLayout>
