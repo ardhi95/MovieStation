@@ -60,7 +60,7 @@ public class MovieB_Activity extends BaseFunct {
         }
         txtNamaB = (TextView) this.findViewById(R.id.txt_namaB);
         txtalamat = (TextView) this.findViewById(R.id.txt_addrB);
-        txtIdcst =(TextView) this.findViewById(R.id.txt_idcst);
+        /*txtIdcst =(TextView) this.findViewById(R.id.txt_idcst);*/
 
         Intent i = getIntent();
         txtidB = i.getStringExtra("id_bioskop");
@@ -69,7 +69,7 @@ public class MovieB_Activity extends BaseFunct {
 
         txtNamaB.setText(nmB);
         txtalamat.setText(addrB);
-        txtIdcst.setText(super.customer.getId_customer());
+        /*txtIdcst.setText(super.customer.getId_customer());*/
         initCollapsingToolbar();
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
